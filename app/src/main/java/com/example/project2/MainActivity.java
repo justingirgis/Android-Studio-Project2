@@ -1,13 +1,16 @@
 package com.example.project2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.GridView;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,11 +18,12 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton leftButton;
     private ImageButton rightButton;
     private CheckBox checkboxGallery;
-    GridView simpleGrid;
+    ListView listView;
     private PictureGalleryFragment pictureFragment;
+    private fragment_gallery_View f;
     int imageCount = 1;
 
-    int animals[] = {R.drawable.animal1, R.drawable.animal2, //add this Mark
+    static int animals[] = {R.drawable.animal1, R.drawable.animal2, //add this Mark
             R.drawable.animal3,
             R.drawable.animal4, R.drawable.animal5,
             R.drawable.animal6,
@@ -69,14 +73,26 @@ public class MainActivity extends AppCompatActivity {
         });
 
         /**********************MY ADDED CODE***********************/
-        checkboxGallery = (CheckBox) findViewById(R.id.checkBoxGallery);
+        checkboxGallery = findViewById(R.id.checkBoxGallery);
+        final FragmentManager fm = getSupportFragmentManager();
 
         checkboxGallery.setOnClickListener(v -> {
-            simpleGrid = findViewById(R.id.simpleGridView);
-            CustomAdapter customAdapter = new
-                    CustomAdapter(getApplicationContext(), animals);
-            simpleGrid.setAdapter(customAdapter);
+
+
+
+                f = fragment_gallery_View.newInstance("Gallery", "View");
+
+                FrameLayout fl = (FrameLayout) findViewById(R.id.pictureGalleryFragment);
+                fl.removeAllViews();
+
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.pictureGalleryFragment, f);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+
         });
+        /**********************MY ADDED CODE***********************/
 
 
     }

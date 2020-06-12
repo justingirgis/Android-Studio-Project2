@@ -9,12 +9,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 public class CustomAdapter extends BaseAdapter {
     Context context; //hello
-    int animals[];
+    int[] animals;
     LayoutInflater inflter;
 
     public CustomAdapter(Context applicationContext, int[] animals) {
         this.context = applicationContext;
-        this.animals = animals;
+        this.animals = new int[]{R.drawable.animal1, R.drawable.animal2, //add this Mark
+                R.drawable.animal3,
+                R.drawable.animal4, R.drawable.animal5,
+                R.drawable.animal6,
+                R.drawable.animal7, R.drawable.animal8};
         inflter = (LayoutInflater.from(applicationContext));
     }
     @Override
@@ -32,9 +36,10 @@ public class CustomAdapter extends BaseAdapter {
     @SuppressLint({"ViewHolder", "InflateParams"})
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflter.inflate(R.layout.fragment_gallery_view,null);
+        view = inflter.inflate(R.layout.icon,null);
         ImageView icon = view.findViewById(R.id.icon);
         icon.setImageResource(animals[i]);
+
         return view;
     }
 }
